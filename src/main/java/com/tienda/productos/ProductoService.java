@@ -1,6 +1,9 @@
 package com.tienda.productos;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.List;
 
 @Service
@@ -21,11 +24,20 @@ public class ProductoService {
     }
 
     public void eliminar(Long id) {
+
+        if (!repo.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
         repo.deleteById(id);
     }
 
     public Producto actualizar(Long id, Producto p) {
+
+        if (!repo.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
         p.setId(id);
         return repo.save(p);
+
     }
 }

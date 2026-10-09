@@ -16,9 +16,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 
+import java.util.stream.Collectors;
+
+
 @RestController
 @RequestMapping("/productos")
 public class ProductoController {
+
+    @GetMapping("/dto")
+    public List<ProductoDTO> listarDTO() {
+        return service.listar().stream()
+                .map(ProductoDTO::de)
+                .collect(Collectors.toList());
+    }
 
     private final ProductoService service;
 

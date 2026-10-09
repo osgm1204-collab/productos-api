@@ -6,6 +6,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
 
 @Entity
 public class Producto {
@@ -17,6 +19,9 @@ public class Producto {
     private String nombre;
     @Positive
     private double precio;
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
 
     public Long getId() {
         return id;
@@ -41,5 +46,7 @@ public class Producto {
     public void setPrecio(double precio) {
         this.precio = precio;
     }
+    public Categoria getCategoria() { return categoria; }
+    public void setCategoria(Categoria categoria) { this.categoria = categoria; }
 }
 

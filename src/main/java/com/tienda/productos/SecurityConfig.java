@@ -57,6 +57,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
 
                 .cors(org.springframework.security.config.Customizer.withDefaults())
+                .headers(headers -> headers.frameOptions(frame -> frame.disable()))
 
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.GET, "/productos/**").permitAll()
@@ -64,7 +65,11 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/productos/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/productos/**").hasRole("ADMIN")
                         .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/h2-console/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/categorias/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/categorias/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
+
                 )
 
 

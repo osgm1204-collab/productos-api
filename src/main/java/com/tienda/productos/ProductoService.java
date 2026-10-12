@@ -31,6 +31,7 @@ public class ProductoService {
     }
 
     public void eliminar(Long id) {
+
         if (!repo.existsById(id)) {
             throw new ProductoNoEncontradoException(id);
         }
